@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiToDoListApp.MainPage"
+             >
+
+    
+    <VerticalStackLayout>
+        <Grid  RowSpacing="0" Padding="0" Margin="4" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- First row: content size -->
+                <RowDefinition Height="40" />
+                <!-- Second row: fixed height -->
+                <RowDefinition Height="*" />
+                <!-- Third row: takes remaining space -->
+            </Grid.RowDefinitions>
+            
+                <Label Text="To-Do List"
+                   FontSize="30"
+                   HorizontalOptions="Center"       
+                   
+                   Padding="20,0,20,0"
+                    Grid.Row="0"/>
+            
+            <Label Text="Today"
+           FontSize="30"
+           TextColor="Black"
+           
+           HorizontalOptions="Center"
+           FontAttributes="Bold"
+                    Grid.Row="1"/>
+            <Label Text="h"
+                    Grid.Row="2"
+                   VerticalOptions="Fill" 
+           HorizontalOptions="Fill"/>
+        </Grid>
+        
+        </VerticalStackLayout>
+    
+
+</ContentPage>
