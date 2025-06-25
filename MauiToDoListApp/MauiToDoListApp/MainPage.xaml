@@ -2,41 +2,64 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiToDoListApp.MainPage"
-             >
+             xmlns:local="clr-namespace:MauiToDoListApp"
+             x:Name="MainPageInstance"
+             Title="To-Do List">
 
-    
-    <VerticalStackLayout>
-        <Grid  RowSpacing="0" Padding="0" Margin="4" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <!-- First row: content size -->
-                <RowDefinition Height="40" />
-                <!-- Second row: fixed height -->
-                <RowDefinition Height="*" />
-                <!-- Third row: takes remaining space -->
-            </Grid.RowDefinitions>
-            
-                <Label Text="To-Do List"
-                   FontSize="30"
-                   HorizontalOptions="Center"       
-                   
-                   Padding="20,0,20,0"
-                    Grid.Row="0"/>
-            
-            <Label Text="Today"
-           FontSize="30"
-           TextColor="Black"
-           
-           HorizontalOptions="Center"
-           FontAttributes="Bold"
-                    Grid.Row="1"/>
-            <Label Text="h"
-                    Grid.Row="2"
-                   VerticalOptions="Fill" 
-           HorizontalOptions="Fill"/>
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        <!-- Entry + Button Row -->
+        <Grid ColumnDefinitions="*,Auto">
+            <Entry Placeholder="Enter new task"
+               Text="{Binding NewTaskTitle}"
+               FontSize="16"
+               Margin="0,0,10,0" />
+
+            <Button Text="Add"
+                Grid.Column="1"
+                Command="{Binding AddTaskCommand}" />
         </Grid>
-        
-        </VerticalStackLayout>
+
+       
     
 
+    <CollectionView ItemsSource="{Binding Tasks}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItems>
+                            <SwipeItem Text="Delete"
+                                       BackgroundColor="Red"
+                                       Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCommand}"
+                                       CommandParameter="{Binding .}" />
+                        </SwipeItems>
+                    </SwipeView.RightItems>
+
+                    <Border BackgroundColor="White"
+                            Padding="10"
+                            Margin="10"
+                            Stroke="Gray"
+                            StrokeThickness="1">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+
+                        <Grid ColumnDefinitions="Auto,*">
+                            <CheckBox IsChecked="{Binding IsCompleted}"
+                                      VerticalOptions="Center"
+                                      
+                                      Margin="0,0,10,0"/>
+                            <Label Text="{Binding Title}"
+                                   Grid.Column="1"
+                                   FontSize="18"
+                                   VerticalOptions="Center"
+                                   TextDecorations="{Binding IsCompleted, Converter={StaticResource BoolToTextDecorationConverter}}" />
+                        </Grid>
+                    </Border>
+                </SwipeView>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+    </VerticalStackLayout>
 </ContentPage>
